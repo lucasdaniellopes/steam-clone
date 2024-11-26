@@ -1,0 +1,126 @@
+[
+    {
+      "model": "auth.permission",
+      "pk": 1,
+      "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+      }
+    },
+    {
+      "model": "auth.permission",
+      "pk": 2,
+      "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+      }
+    },
+    {
+      "model": "auth.permission",
+      "pk": 3,
+      "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+      }
+    },
+    {
+      "model": "auth.permission",
+      "pk": 4,
+      "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+      }
+    },
+    {
+      "model": "contenttypes.contenttype",
+      "pk": 1,
+      "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+      }
+    },
+    {
+      "model": "contenttypes.contenttype",
+      "pk": 2,
+      "fields": {
+        "app_label": "auth",
+        "model": "permission"
+      }
+    },
+    {
+      "model": "contenttypes.contenttype",
+      "pk": 3,
+      "fields": {
+        "app_label": "auth",
+        "model": "group"
+      }
+    },
+    {
+      "model": "contenttypes.contenttype",
+      "pk": 4,
+      "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+      }
+    },
+    {
+      "model": "contenttypes.contenttype",
+      "pk": 5,
+      "fields": {
+        "app_label": "sessions",
+        "model": "session"
+      }
+    },
+    {
+      "model": "games.publisher",
+      "pk": 1,
+      "fields": {
+        "name": "Warner Bros.",
+        "gameCount": 1,
+        "email": "warner@wb.com"
+      }
+    },
+    {
+      "model": "games.games",
+      "pk": 1,
+      "fields": {
+        "name": "Mortal Kombat 11",
+        "category": "Fighting",
+        "release_date": "2023-08-02",
+        "description": "Mortal Kombat is back and better than ever in the next evolution of the iconic franchise.",
+        "requirements": "OS: 64-bit Windows 7 / Windows 10\nProcessor: Intel Core i5-750, 2.66 GHz / AMD Phenom II X4 965, 3.4 GHz or AMD RyzenÖ 3 1200, 3.1 GHz\nMemory: 8 GB RAM\nGraphics: NVIDIA« GeForceÖ GTX 670 or NVIDIA« GeForceÖ GTX 1050 / AMD« RadeonÖ HD 7950 or AMD« RadeonÖ R9 270\nDirectX: Version 11\nNetwork: Broadband Internet connection\nStorage: 120GB",
+        "price": 50.0,
+        "img_cover": "photos/23/08/02/mk11.jpg",
+        "img_1": "photos/23/08/02/mk11_1.jpg",
+        "img_2": "photos/23/08/02/mk11_2.jpg",
+        "img_3": "photos/23/08/02/mk11_3.jpg",
+        "trailer": "videos/23/08/02/mk11_480p.mp4",
+        "developerName": "Netherrealm Studtios",
+        "publisherName": 1
+      }
+    },
+    {
+      "model": "users.user",
+      "pk": 1,
+      "fields": {
+        "last_login": "2023-08-06T14:45:09.506Z",
+        "name": "Mazen",
+        "password": "pbkdf2_sha256$260000$75JPj3OLFDferRwh41CfzC$ZEXOir7oEw4HWaG3wynwYt0fIneCm94tgX9jLtA8PYY=",
+        "phone": "01102851831",
+        "email": "mazenyasser225@gmail.com",
+        "spendings": null,
+        "is_active": true,
+        "is_superuser": true,
+        "is_staff": true,
+        "dateJoined": "2023-08-02T11:48:45.661Z",
+        "lastLogin": null,
+        "groups": [],
+        "user_permissions": []
+      }
+    }
+  ]
+  

@@ -1,0 +1,78 @@
+[
+    {
+        "model": "games.publisher",
+        "pk": 1,
+        "fields": {
+            "name": "Warner Bros.",
+            "gameCount": 1,
+            "email": "warner@wb.com"
+        }
+    },
+    {
+        "model": "games.games",
+        "pk": 1,
+        "fields": {
+            "name": "Mortal Kombat 11",
+            "category": "Fighting",
+            "release_date": "2023-08-02",
+            "description": "Mortal Kombat is back and better than ever in the next evolution of the iconic franchise.",
+            "requirements": "OS: 64-bit Windows 7 / Windows 10\r\nProcessor: Intel Core i5-750, 2.66 GHz / AMD Phenom II X4 965, 3.4 GHz or AMD RyzenÖ 3 1200, 3.1 GHz\r\nMemory: 8 GB RAM\r\nGraphics: NVIDIA« GeForceÖ GTX 670 or NVIDIA« GeForceÖ GTX 1050 / AMD« RadeonÖ HD 7950 or AMD« RadeonÖ R9 270\r\nDirectX: Version 11\r\nNetwork: Broadband Internet connection\r\nStorage: 120GB",
+            "price": 50.0,
+            "img_cover": "photos/23/08/02/mk11.jpg",
+            "img_1": "photos/23/08/02/mk11_1.jpg",
+            "img_2": "photos/23/08/02/mk11_2.jpg",
+            "img_3": "photos/23/08/02/mk11_3.jpg",
+            "trailer": "videos/23/08/02/mk11_480p.mp4",
+            "developerName": "Netherrealm Studtios",
+            "publisherName": 1
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 1,
+        "fields": {
+            "last_login": "2023-08-06T14:45:09.506Z",
+            "name": "Mazen",
+            "password": "pbkdf2_sha256$260000$75JPj3OLFDferRwh41CfzC$ZEXOir7oEw4HWaG3wynwYt0fIneCm94tgX9jLtA8PYY=",
+            "phone": "01102851831",
+            "email": "mazenyasser225@gmail.com",
+            "spendings": null,
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "dateJoined": "2023-08-02T11:48:45.661Z",
+            "lastLogin": null,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "users.user",
+        "pk": 3,
+        "fields": {
+            "last_login": "2023-08-06T14:28:28.868Z",
+            "name": "Kazuya Mishima",
+            "password": "pbkdf2_sha256$260000$yT96AXHqpz7aTecI1Q42ZZ$f5yT/bfYKqphLJpOF2RluL8LaYNRWT22O9hvS/db9as=",
+            "phone": "01102851831",
+            "email": "mazenyasserx03@gmail.com",
+            "spendings": null,
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "dateJoined": "2023-08-03T11:04:25.951Z",
+            "lastLogin": null,
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "checkout.order",
+        "pk": 10,
+        "fields": {
+            "user_id": 3,
+            "order_date": "2023-08-06T14:25:37.143Z",
+            "game": 1,
+            "cost": 50.0
+        }
+    }
+]
