@@ -5,6 +5,7 @@
 <html>
   {% block main %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/login-stylesheet.css' %}/?v=1" >
+  <body style="background-image: url('https://store.cloudflare.steamstatic.com/public/shared/images/joinsteam/new_login_bg_strong_mask.jpg'); background-size: cover; background-position: center;">
 
   
     <body style="
@@ -16,15 +17,15 @@
         <form id="loginForm" method="POST" class="container smallFont fade-in">
           {% csrf_token %}
           <div>
-            <label for="uname"><b>Sign in with account name</b></label>  
-            <input type="text" placeholder="Enter Username" name="username" required>
+            <label for="uname"><b>nome</b></label>  
+            <input type="text" placeholder="nome do usuário" name="username" required>
         
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="password" required>
+            <label for="psw"><b>Senha</b></label>
+            <input type="password" placeholder="digite sua senha" name="password" required>
             
             <div id="btn-div">
             <button type="submit">
-              <span>Sign in</span></button>
+              <span>Entrar</span></button>
               <p class = 'smallFont'>
                 {% if messages %}
                   {% for message in messages %}
@@ -32,9 +33,9 @@
                   {% endfor %}
                 {% endif %}
                 </p>
-              <label class="smallFont"><a href="{% url 'users:register' %}">Not Registered?</a></label>
+              <label class="smallFont"><a href="{% url 'users:register' %}">Não tem conta</a></label>
                 <br>
-              <label class="smallFont"><a href="{% url 'users:forgotPassword' %}">Forgot Password?</a></label>
+              <label class="smallFont"><a href="{% url 'users:forgotPassword' %}">Esqueceu a senha ?</a></label>
             </div>
 
             

@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'steam-clone',  
         'USER': 'postgres',   
-        'PASSWORD': '92933432', 
+        'PASSWORD': '99948949', 
         'HOST': 'localhost',    
         'PORT': '5432',         
     }
