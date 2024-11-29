@@ -7,8 +7,7 @@
   <script src="{% static "js/accountInfo-js.js" %}"></script>
     
 
-<body id="transparentBG" style="
- background: linear-gradient(rgba(0, 0, 0, 0.70), rgba(0, 0, 0, 0.70)), url({% static 'ImageData/cover.webp' %});">
+  <body style="background-image: url('https://store.cloudflare.steamstatic.com/public/shared/images/joinsteam/new_login_bg_strong_mask.jpg'); background-size: cover; background-position: center;">
  <div class="gradient-blur"></div>
 
  <div id="userInfoForm" class="container smallFont">
@@ -19,16 +18,16 @@
      <div class="container smallFont">
         
        <div class="container">
-        <label class="mediumFont" for="username"><b>Username: </b></label>
+        <label class="mediumFont" for="username"><b>Nome: </b></label>
         <span class="smallFont">{{username}}</span>
-        <button class="btn btn-primary">Change Username</button>
+        <button class="btn btn-primary">Trocar nome</button>
         <input id="nameInput" class="fade-in" type="text" placeholder="">
        </div>
 
         <div class="container">
             <label class="mediumFont" for="email"><b>Email: </b></label>
             <span class="smallFont">{{email}}</span>
-            <button class="btn btn-primary" onclick="openForm(emailInput)">Change Email</button>
+            <button class="btn btn-primary" onclick="openForm(emailInput)">Trocar Email</button>
             
             <div id="emailInput" class="container">
               <form method="POST" class="fade-in">
@@ -45,17 +44,17 @@
         </div>
 
          <div class="container">
-            <label class="mediumFont" for="phone"><b>Phone: </b></label>
+            <label class="mediumFont" for="phone"><b>Telefone: </b></label>
             <span class="smallFont">{{phone}}</span>
-            <button class="btn btn-primary">Change Phone</button>
+            <button class="btn btn-primary">Trocar Telefone</button>
             <input id="phoneInput" class="fade-in" type="text" placeholder="">
              <br>
          </div>
 
           <div class="container smallFont">
-            <label class="mediumFont" for="password"><b>Password: </b></label>
+            <label class="mediumFont" for="password"><b>Senha: </b></label>
             <span class="smallFont">*****</span>
-            <button class="btn btn-primary " onclick="openForm(passwordInput)">Change Password</button>
+            <button class="btn btn-primary " onclick="openForm(passwordInput)">Trocar Senha</button>
             
             <div id="passwordInput" class="container">
               <form method="POST" class="" style="">

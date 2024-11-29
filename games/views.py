@@ -4,19 +4,23 @@ from django.http import HttpResponse
 from django.utils import timezone
 from .models import Games, Review
 from checkout.models import Order
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.views.generic import UpdateView
+from .models import Games
+from .forms import GameForm
 
 
-class GameDetailView(DetailView):
+class GameDetailView(LoginRequiredMixin, DetailView):
     model = Games
     template_name = 'games/gameTemplate.html'
     context_object_name = 'game'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        game = self.object
-        context['reviews'] = game.review_set.all()
-        context['user_review'] = game.review_set.filter(user=self.request.user)
-        context['isOwned'] = Order.objects.filter(user_id=self.request.user, game=game).exists()
+        user = self.request.user
+        context['games'] = user.games.all()
         return context
 
 
@@ -54,3 +58,16 @@ class UpdateReviewView(View):
         reviews = game.review_set.all()
         user_review = game.review_set.filter(user=user)
         return render(request, 'games/gameTemplate.html', context={"game": game, "reviews": reviews, "user_review": user_review})
+    
+class GameUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Games
+    form_class = GameForm
+    template_name = 'games/gameTemplate.html'  
+    context_object_name = 'game'
+
+    def get_success_url(self):
+        return reverse_lazy('game', kwargs={'pk': self.object.pk})
+
+    def test_func(self):
+        game = self.get_object()
+        return game.user.id == self.request.user.id

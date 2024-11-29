@@ -1,202 +1,152 @@
-<!DOCTYPE html>
 {% extends 'productBase.html' %}
 {% load static %}
+
 {% block main %}
 <html>
-  <link rel="stylesheet" href="{% static 'css/product-stylesheet.css' %}">
-  <script src="{% static 'js/product-js.js' %}"></script>
-  
-    <body>
-        
-            <!--Game Highlights Container-->
-            <div id="game-highlight-div" class="container">
-                <div id="demo" class="carousel slide carousel-fade vid-carousel" data-ride="carousel" data-interval="false">
+  <head>
+    <link rel="stylesheet" href="{% static 'css/product-stylesheet.css' %}">
+    <script src="{% static 'js/product-js.js' %}"></script>
+  </head>
+  <body>
+    <div id="game-highlight-div" class="container">
+      <div id="demo" class="carousel slide carousel-fade vid-carousel" data-ride="carousel" data-interval="false">
+        <!-- Carousel com as imagens e trailer do jogo -->
+        <ul class="carousel-indicators">
+          <li data-target="#demo" data-slide-to="0" class="active" style="background-image: url({{ game.img_cover.url }});"></li>
+          <li data-target="#demo" data-slide-to="1" style="background-image: url({{ game.img_1.url }});"></li>
+          <li data-target="#demo" data-slide-to="2" style="background-image: url({{ game.img_2.url }});"></li>
+          <li data-target="#demo" data-slide-to="3" style="background-image: url({{ game.img_3.url }});"></li>
+        </ul>
 
-          <!-- Indicators -->
-          <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active" style="background-image: url({{game.img_cover.url}});"></li>
-            <li data-target="#demo" data-slide-to="1" style="background-image: url({{game.img_1.url}});"></li>
-            <li data-target="#demo" data-slide-to="2" style="background-image: url({{game.img_2.url}});"></li>
-            <li data-target="#demo" data-slide-to="3" style="background-image: url({{game.img_3.url}});"></li>
-          </ul>
-          
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-                <video controls autoplay muted id="myVideo" width="100%" height="100%">
-                    <source src="{{game.trailer.url}}" type="video/mp4">
-                  </video>
-            </div>
-            <div class="carousel-item">
-              <img src="{{game.img_1.url}}">
-            </div>
-            <div class="carousel-item">
-              <img src="{{game.img_2.url}}">
-            </div>
-            <div class="carousel-item">
-                <img src="{{game.img_3.url}}">
-              </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <video controls autoplay muted id="myVideo" width="100%" height="100%">
+              <source src="{{ game.trailer.url }}" type="video/mp4">
+            </video>
           </div>
-          
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#demo" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#demo" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </a>
-        </div>
-
-        <div id="game-highlight">
-            <img class="game_header_image_full" src="{{game.img_cover.url}}">
-            <p class="smallFont">
-                {{game.description}}
-                <br> 
-                <p class="tinyFont">
-                    RELEASE DATE: &#160; &#160; &#160; &#160; &#160; &#160;
-                    {{game.release_date}}
-                    <br>
-                    DEVELOPER: &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; 
-                    {{game.developerName}}
-                    <br>
-                    PUBLISHER: &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;
-                    {{game.publisherName}}
-                </p>
-            </p>
-        </div>
-
-                
-        </div>
-
-        <div class="container" id="game-price">
-            <div class="smallFont">
-                Purchase {{game.name}}
-            </div>
-            
-
-            <div id="price">
-              {% if isOwned is True %}
-                <p class='review-verdict'>You already own the game</p>
-                {% else %}
-                    <span>${{game.price}} USD</span>
-
-                <div id="btn-buy">
-                  <a href="{% url 'checkout:checkout' game.id %}">
-                    <button type="button" class="btn-success"><span>Buy Game</span></button>
-                  </a>
-                </div>
-                {% endif %}
-            </div>
-            
+          <div class="carousel-item">
+            <img src="{{ game.img_1.url }}">
           </div>
-
-        <div class='container' id="sysreq">
-          <span class="smallFont">
-            System Requirements &#160; &#160;
-          </span>
-          <br>
-          <div id="req-type" class="smallFont">
-            {{game.requirements | linebreaksbr}}
+          <div class="carousel-item">
+            <img src="{{ game.img_2.url }}">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ game.img_3.url }}">
           </div>
         </div>
-        <br>
-        
-        
-        {% if user_review %}
-        <div class='container' style="display: block;">
-          <h4 class='review-label'>
-            Your review of {{game.name}}:
-          </h4>
-        </div>
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </a>
+      </div>
 
-         <div id='user-review' class='container review-container'>
-            {% for review in user_review %}
-            <p>
-              <span class="review-username">{{review.user}}</span>
-            <span class="review-date">Posted: {{review.review_date}}</span></p>
-              
-            <p class="review-verdict">
-            {% if review.verdict == 1 %}
-                <img src={% static 'ImageData/thumbs_up.png'%}>
-                Recommended</p>
-              {% else %}
-              <img src={% static 'ImageData/thumbs_down.png'%}>
-              Not Recommended</p>
-              {% endif %}
-              <p style="color:whitesmoke">{{review.review}}</p>
-            
-            <button type="button" class='btn-primary' onclick="showUpdateReview()">
-              Update Review
-            </button>
-         </div>
+      <div id="game-highlight">
+        <img class="game_header_image_full" src="{{ game.img_cover.url }}">
+        <p class="smallFont">
+          {{ game.description }}<br>
+          <p class="tinyFont">
+            Data de Lançamento: &#160;&#160;&#160;{{ game.release_date }}<br>
+            Desenvolvedor: &#160;&#160;&#160;{{ game.developerName }}<br>
+            Distribuidora: &#160;&#160;&#160;{{ game.publisherName }}
+          </p>
+        </p>
+      </div>
+    </div>
 
-         <form id='update-review' class='container review-container' method="GET" action="{% url 'submitReview' game.id %}">
-            <textarea class="review-textarea" type='text' name='review' rows="4" cols="50">{{review.review}}</textarea>
-            <br>
-
-            {% if review.verdict == 1 %}
-            <input type='checkbox' name='isRecommended' id='isRecommended' checked>
-            {% else %}
-            <input type='checkbox' name='isRecommended' id='isRecommended'>
-            {% endif %}
-
-            <label class="review-verdict" for="isRecommended">Recommended?</label>
-            <br>
-            <button type="submit" class='btn-primary'><span>Submit</span></button>
-          </form>
-          {% endfor %}
-         <br> 
-
+    <div class="container" id="game-price">
+      <div class="smallFont">Comprar {{ game.name }}</div>
+      <div id="price">
+        {% if isOwned %}
+          <p class="review-verdict">Você já possui o jogo</p>
         {% else %}
-        {% if isOwned is True %}
-        <form class='container review-container' method="GET" action="{% url 'submitReview' game.id %}">
-            <label class="review-label" for="review">Leave a review of the game</label>
-            <br>
-            <textarea class="review-textarea" type='text' name='review'rows="4" cols="50"></textarea>
-            <br>
-            <input type='checkbox' name='isRecommended' id='isRecommended'>
-            <label class='review-verdict' for="isRecommended">Recommended?</label>
-            <br>
-            <button type="submit" class='btn-primary'><span>Submit Review</span></button>
-        </form>
-        <br>
-        {% else %}
-        <div style='text-align: center'>
-          <h3 class="container review-label">Please purchase the game to leave a review.</h3>
-          <br>
-        </div>
+          <span>${{ game.price }} BRL</span>
+          <div id="btn-buy">
+            <a href="{% url 'checkout:checkout' game.id %}">
+              <button type="button" class="btn-success"><span>Comprar</span></button>
+            </a>
+          </div>
         {% endif %}
+      </div>
+    </div>
 
+    <div class="container" id="sysreq">
+      <span class="smallFont">REQUISITOS DE SISTEMA &#160;&#160;</span><br>
+      <div id="req-type" class="smallFont">{{ game.requirements | linebreaksbr }}</div>
+    </div>
 
-      {% endif %}
+    {% if game.user == request.user %}
+    <div class="container">
+      <h4 class="review-label">Atualizar informações do jogo:</h4>
+    </div>
 
+    <form class="container review-container" method="POST" action="{% url 'updateGameInfo' game.id %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <!-- Nome do Jogo -->
+      <div class="form-group">
+        <label for="game_name">Nome do Jogo:</label>
+        <input type="text" name="game_name" id="game_name" value="{{ game.name }}" class="form-control">
+      </div>
 
-        <div class="container">
-          <h3 class='review-label'>Player's Reviews of {{game.name}}:</h3>
-        </div>
-        <div class="container review-container">
-          
-          {% for review in reviews %}
-            {% if review.user != user %}
-            <p>
-              <span class="review-username">{{review.user}}</span>
-            <span class='review-date'>Posted: {{review.review_date}}</span></p>
-              
-            <p class='review-verdict'>
-            {% if review.verdict == 1 %}
-                <img src={% static 'ImageData/thumbs_up.png'%}>
-                Recommended</p>
-              {% else %}
-              <img src={% static 'ImageData/thumbs_down.png'%}>
-              Not Recommended</p>
-              {% endif %}
-              <p class='review-verdict'>{{review.review}}</p>
-            {% endif %}
-          {% endfor %}
-        </div>
-        
+      <!-- Descrição do Jogo -->
+      <div class="form-group">
+        <label for="game_description">Descrição:</label>
+        <textarea name="game_description" id="game_description" rows="4" class="form-control">{{ game.description }}</textarea>
+      </div>
 
-    </body>
-    {% endblock main %}
-    
+      <!-- Preço do Jogo -->
+      <div class="form-group">
+        <label for="game_price">Preço (BRL):</label>
+        <input type="number" name="game_price" id="game_price" value="{{ game.price }}" class="form-control">
+      </div>
+
+      <!-- Data de lançamento -->
+      <div class="form-group">
+        <label for="game_release_date">Data de Lançamento:</label>
+        <input type="date" name="game_release_date" id="game_release_date" value="{{ game.release_date }}" class="form-control">
+      </div>
+
+      <!-- Imagens -->
+      <div class="form-group">
+        <label for="game_img_cover">Capa do Jogo (Imagem Principal):</label>
+        <input type="file" name="game_img_cover" id="game_img_cover" class="form-control">
+        <img src="{{ game.img_cover.url }}" width="100px" alt="Imagem da Capa">
+      </div>
+
+      <div class="form-group">
+        <label for="game_img_1">Imagem 1:</label>
+        <input type="file" name="game_img_1" id="game_img_1" class="form-control">
+        <img src="{{ game.img_1.url }}" width="100px" alt="Imagem 1">
+      </div>
+
+      <div class="form-group">
+        <label for="game_img_2">Imagem 2:</label>
+        <input type="file" name="game_img_2" id="game_img_2" class="form-control">
+        <img src="{{ game.img_2.url }}" width="100px" alt="Imagem 2">
+      </div>
+
+      <div class="form-group">
+        <label for="game_img_3">Imagem 3:</label>
+        <input type="file" name="game_img_3" id="game_img_3" class="form-control">
+        <img src="{{ game.img_3.url }}" width="100px" alt="Imagem 3">
+      </div>
+
+      <!-- Trailer -->
+      <div class="form-group">
+        <label for="game_trailer">Trailer (vídeo MP4):</label>
+        <input type="file" name="game_trailer" id="game_trailer" class="form-control">
+        <video width="200" controls>
+          <source src="{{ game.trailer.url }}" type="video/mp4">
+          Seu navegador não suporta o formato de vídeo.
+        </video>
+      </div>
+
+      <!-- Botão de Submissão -->
+      <button type="submit" class="btn-primary">Salvar alterações</button>
+    </form>
+  {% endif %}
+</body>
 </html>
+{% endblock %}

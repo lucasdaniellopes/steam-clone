@@ -38,6 +38,7 @@ class Games(models.Model):
     trailer = models.FileField(verbose_name='Video Trailer',upload_to='videos/%y/%m/%d', blank=True, null=True)
     developerName = models.CharField(max_length=50)
     publisherName = models.ForeignKey(to=Publisher, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, related_name='games', on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return self.name

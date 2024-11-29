@@ -12,10 +12,11 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.sites.shortcuts import get_current_site
 from .models import User
 from .forms import registerForm
-from .tokens import account_activation_token, mail_change_token, password_reset_token
+from .tokens import mail_change_token, password_reset_token
 from random import randrange
 from django.conf import settings
 from games.models import Games
+from .models import User
 from django.template.loader import render_to_string
 
 
@@ -56,52 +57,37 @@ class ConfirmMailChangeView(View):
         return redirect('pages:home')
 
 
-class ActivationView(View):
-    def get(self, request, uidb64, token, *args, **kwargs):
-        try:
-            uid = force_str(urlsafe_base64_decode(uidb64))
-            user = User.objects.get(pk=uid)
-        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-            user = None
-
-        if user and account_activation_token.check_token(user, token):
-            user.is_active = True
-            user.save()
-            messages.success(request, 'Account activated. You can now log in.')
-            return redirect('users:login')
-        messages.error(request, 'Invalid activation link.')
-        return redirect('pages:home')
-
-
 class RegisterView(FormView):
     template_name = 'forms/register.html'
     form_class = registerForm
 
     def form_valid(self, form):
-        user = form.save(commit=False)
-        user.password = make_password(form.cleaned_data['password'])
-        user.is_active = False
-        user.save()
-        self.send_activation_email(user)
-        messages.success(self.request, 'Account created. Please check your email to activate your account.')
+        
+        if User.objects.filter(name=form.cleaned_data['name']).exists():
+            print("Nome já existe!")  
+            form.add_error('name', 'Esse nome ja está em uso. Por favor, escolha um diferente.')
+            return self.form_invalid(form)
+        
+        
+        user = User(
+            name=form.cleaned_data['name'],
+            email=form.cleaned_data['email'],
+            phone=form.cleaned_data['phone'],
+            password=make_password(form.cleaned_data['password']),
+            is_active=True  
+        )
+        user.save()  
+
+       
+        messages.success(self.request, 'Conta criada com sucesso, agora você pode fazer Login.')
+
+        
         return redirect('users:login')
 
-    def form_invalid(self, form):
-        for error in form.errors.values():
-            messages.error(self.request, error)
-        return self.render_to_response(self.get_context_data(form=form))
 
-    def send_activation_email(self, user):
-        subject = 'Activate your account'
-        message = render_to_string('forms/activateAccountMail.html', {
-            'user': user.name,
-            'domain': get_current_site(self.request).domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token.make_token(user),
-            'protocol': 'https' if self.request.is_secure() else 'http'
-        })
-        email = EmailMessage(subject=subject, body=message, to=[user.email])
-        email.send()
+    def form_invalid(self, form):
+        print("Formulário inválido:", form.errors)  
+        return self.render_to_response({'form': form})
 
 
 class LoginView(View):
@@ -116,16 +102,16 @@ class LoginView(View):
             auth_login(request, user)
             return redirect('pages:home')
         if not user:
-            messages.error(request, 'Invalid username or password.')
+            messages.error(request, 'Nome ou senha inválidos.')
         elif not user.is_active:
-            messages.error(request, 'Account not activated.')
+            messages.error(request, 'A conta não está ativa')
         return redirect('users:login')
 
 
 class LogoutView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         auth_logout(request)
-        messages.success(request, 'You have been logged out.')
+        messages.success(request, 'Você foi desconectado.')
         return redirect('pages:home')
 
 
